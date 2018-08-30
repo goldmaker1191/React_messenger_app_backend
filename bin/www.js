@@ -17,10 +17,11 @@ var server = http.createServer(function (req, res) {
   // You can define here your custom logic to handle the request
   // and then proxy the request.
   if (req.url.indexOf('sanctions-check') > 0) {
+    const sanctionAPIUrl = process.env.SANCTIONS_API_URL || 'https://secure.underwriting-support.com:443/fst/api/fst_api.php';
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
     res.setHeader('Access-Control-Allow-Method', 'GET, POST, PUT, DELETE, PATCH');
-    proxy.web(req, res, {target: 'https://secure.underwriting-support.com:443/fst/api/fst_api.php'});
+    proxy.web(req, res, {target: sanctionAPIUrl});
   }
 });
 
